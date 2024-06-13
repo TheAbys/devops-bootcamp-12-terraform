@@ -110,3 +110,10 @@ TF_VAR tells terraform it is a global variable, must be defined in terraform
 # 11 - Create Git Repository for local Terraform Project
 
 Adding a .gitignore for not versioning specific or sensitive Terraform files
+
+# 12 - Automate Provisioning EC2 with Terraform - Part 1
+
+Updated the terraform script so a custom vpc and subnet is created.
+AWS automatically generates a routing table for this vpc. Per default this routing table only contains a route definition for routing inside the vpc.
+For communication outside this vpc a internet gateway must be defined.
+
