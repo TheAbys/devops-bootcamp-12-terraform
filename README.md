@@ -117,3 +117,6 @@ Updated the terraform script so a custom vpc and subnet is created.
 AWS automatically generates a routing table for this vpc. Per default this routing table only contains a route definition for routing inside the vpc.
 For communication outside this vpc a internet gateway must be defined.
 
+With
+
+    terraform state show aws_vpc.myapp-vpc i can see the resource definition if it is existing
