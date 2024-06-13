@@ -120,3 +120,13 @@ For communication outside this vpc a internet gateway must be defined.
 With
 
     terraform state show aws_vpc.myapp-vpc i can see the resource definition if it is existing
+
+# 13 - Automate Provisioning EC2 with Terraform - Part 2
+
+Defining a EC2 instance in terraform.
+
+Create a ssh key within AWS, store the .pem file in ~/.ssh/ and change its permissions
+
+    chmod 400 ~/.ssh/server-key-pair.pem
+
+This is required, otherwise aws will block the access!
