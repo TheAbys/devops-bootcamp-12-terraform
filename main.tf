@@ -121,6 +121,17 @@ resource "aws_instance" "myapp-server" {
   associate_public_ip_address = true
   key_name = aws_key_pair.ssh-key.key_name
 
+  user_data = <<EOF
+    #!/bin/bash
+    sudo yum update -y && sudo yum install -y docker
+    sudo systemctl start docker
+    sudo usermod -aG docker ec2-user
+    docker run -p 8080:80 nginx
+  EOF
+
+  # when the user_data script changes the server is recreated, if anything else is changed it depends on the other changes if a recreation is required, adding a tag e.g. doesn't force recreation
+  user_data_replace_on_change = true
+
   tags = {
     Name: "${var.env_prefix}-server"
   }
