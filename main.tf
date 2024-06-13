@@ -8,6 +8,7 @@ variable avail_zone {}
 variable env_prefix {}
 variable my_ip {}
 variable instance_type {}
+variable public_key_location {}
 
 resource "aws_vpc" "myapp-vpc" {
   cidr_block = var.vpc_cidr_block
@@ -98,6 +99,16 @@ data "aws_ami" "latest-amazon-linux-image" {
 #   value       = data.aws_ami.latest-amazon-linux-image.id
 # }
 
+output "ec2_public_ip" {
+  value = aws_instance.myapp-server.public_ip
+}
+
+resource "aws_key_pair" "ssh-key" {
+  key_name = "server-key"
+  #public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5ZL6Nhike6kUE/4inopea+CQWXhj7NVIA1rDi6GbOpwks5+4WCPiNZgPQBmFcQTKmewjVNEhkiEfvauv12NVF7mc19iWt/ep1QFsmsCjqRb/aaMqOuE9NlnYC7Iq5sxtVNGaeo/J15lcbsKhk2Mp6VUD/arChY2k10VTcir51ux5avBSYIWmkYJMUTVYMNWRDp2Bhh6rZXjvw7pfnLqWhg7L14SCaF37hRLWXUGz1vy30NyX+nRzLMY2Pk+gK1r7QI6m6EzUO/yYAhIWrLt78YfRWNEX8tu3YclqSrFLuVpam8K38Ow1j6QaaxP747M4k9a4WBQBp1/D9u8XVpNYd8cuh5y7c1f/oWbtrIgV4L4F5scZt4yvLoyAIA+la0GIbj1GcxDX6tyUv2MjuTB0qab6r0fzpoH/+e+33Gn9H5OSAAwDaApp9t/Tf2ghLzJ87P/3AYiVdPDUwAZ2NZNRG5RyG5HFREkKabUMJr0TxFePLeMICikB8KRFbdvFQA1c= mueller@mueller-virtual-machine"
+  public_key = file(var.public_key_location)
+}
+
 resource "aws_instance" "myapp-server" {
   ami = data.aws_ami.latest-amazon-linux-image.id
   instance_type = var.instance_type
@@ -108,7 +119,7 @@ resource "aws_instance" "myapp-server" {
   availability_zone = var.avail_zone
 
   associate_public_ip_address = true
-  key_name = "server-key-pair"
+  key_name = aws_key_pair.ssh-key.key_name
 
   tags = {
     Name: "${var.env_prefix}-server"
