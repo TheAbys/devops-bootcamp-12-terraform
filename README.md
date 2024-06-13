@@ -85,3 +85,28 @@ Variables can be passed through -var "<varname>=<varvalue>" or through a .tfvars
 The terraform.tfvars file is automatically detected, if another name is used for seperation like -dev, -prod, ... the file must be named through -var-file 
 
     terraform apply -var-file terraform-dev.tfvars
+
+# 10 - Environment Variables in Terraform
+
+You can set the environment variables and then apply the terraform state, but the environment variables are not persistant.
+
+    export AWS_SECRET_ACCESS_KEY=
+    export AWS_ACCESS_KEY_ID=
+    terraform apply -var-file terraform-dev.tfvars
+
+global configuration
+
+    ls ~/.aws/credentials
+    aws configure
+
+Custom environment variable
+
+    export TF_VAR_avail_zone="eu-central-1a"
+
+TF_VAR tells terraform it is a global variable, must be defined in terraform
+
+    variable avail_zone{}
+
+# 11 - Create Git Repository for local Terraform Project
+
+Adding a .gitignore for not versioning specific or sensitive Terraform files
