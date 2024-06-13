@@ -45,8 +45,7 @@ resource "aws_default_route_table" "main-rtb" {
   }
 }
 
-resource "aws_security_group" "myapp-sg" {
-  name = "myapp-sg"
+resource "aws_default_security_group" "default-sg" {
   vpc_id = aws_vpc.myapp-vpc.id
 
   # we just open one specific port, but we could also open from port 1 to 1000 e.g.
@@ -76,6 +75,6 @@ resource "aws_security_group" "myapp-sg" {
   }
 
   tags = {
-    Name: "${var.env_prefix}-sg"
+    Name: "${var.env_prefix}-default-sg"
   }
 }
