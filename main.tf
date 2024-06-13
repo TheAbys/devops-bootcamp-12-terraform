@@ -9,6 +9,7 @@ variable env_prefix {}
 variable my_ip {}
 variable instance_type {}
 variable public_key_location {}
+variable private_key_location {}
 
 resource "aws_vpc" "myapp-vpc" {
   cidr_block = var.vpc_cidr_block
@@ -121,10 +122,32 @@ resource "aws_instance" "myapp-server" {
   associate_public_ip_address = true
   key_name = aws_key_pair.ssh-key.key_name
 
-  user_data = file("entry-script.sh")
+  # user_data = file("entry-script.sh")
 
   # when the user_data script changes the server is recreated, if anything else is changed it depends on the other changes if a recreation is required, adding a tag e.g. doesn't force recreation
   user_data_replace_on_change = true
+
+  # belongs to the provisioner
+  connection {
+    type = "ssh"
+    host = self.public_ip
+    user = "ec2-user"
+    private_key = file(var.private_key_location)
+  }
+
+  provisioner "file" {
+    source = "entry-script.sh"
+    destination = "/home/ec2-user/entry-script-on-ec2.sh"
+  }
+
+  # even inside this resource the connection must be created first
+  provisioner "remote-exec" {
+    script = "entry-script.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "echo ${self.public_ip} > output.txt"
+  }
 
   tags = {
     Name: "${var.env_prefix}-server"

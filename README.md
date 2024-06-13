@@ -130,3 +130,12 @@ Create a ssh key within AWS, store the .pem file in ~/.ssh/ and change its permi
     chmod 400 ~/.ssh/server-key-pair.pem
 
 This is required, otherwise aws will block the access!
+
+# 14 - Automate Provisioning EC2 with Terraform - Part 2
+
+Use a manually local created ssh key and automatically execute shellscripts on the created server.
+
+# 15 - Provisioners in Terraform
+
+Provisioners should only be used as a last resort, the provisioners are not idempotent
+Best practise is to give that tasks to configuration management tools like Ansible, Chef, Puppet or Saltstack
