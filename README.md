@@ -139,3 +139,9 @@ Use a manually local created ssh key and automatically execute shellscripts on t
 
 Provisioners should only be used as a last resort, the provisioners are not idempotent
 Best practise is to give that tasks to configuration management tools like Ansible, Chef, Puppet or Saltstack
+
+# 16 - Modules in Terraform - Part 1
+
+Specific tasks like creating a VPC in AWS can be put into a module and therefore reused.
+There are a lot of predefined modules from the providers so that not everyone has to create an own VPC module.
+Still it is possible to create your own module.
