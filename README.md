@@ -130,3 +130,10 @@ Create a ssh key within AWS, store the .pem file in ~/.ssh/ and change its permi
     chmod 400 ~/.ssh/server-key-pair.pem
 
 This is required, otherwise aws will block the access!
+
+# 17 - Modules in Terraform - Part 2
+
+Divide main.tf into multiple modules
+Created module subnet and webserver which requires initialization
+
+    terraform init
