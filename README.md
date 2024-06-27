@@ -130,3 +130,8 @@ Create a ssh key within AWS, store the .pem file in ~/.ssh/ and change its permi
     chmod 400 ~/.ssh/server-key-pair.pem
 
 This is required, otherwise aws will block the access!
+
+# 19 - Automate Provisioning EKS cluster with Terraform - Part 1
+
+Called vpc module, provided all arguments for eks.
+
