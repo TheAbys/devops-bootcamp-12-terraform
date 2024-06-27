@@ -137,3 +137,8 @@ Divide main.tf into multiple modules
 Created module subnet and webserver which requires initialization
 
     terraform init
+
+# 18 - Modules in Terraform - Part 3
+
+Setup module webserver
+Moved over code that's part of the webserver, configured some additional variables for it to work
