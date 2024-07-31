@@ -141,3 +141,24 @@ Could not proceed with this task as one operation is blocked for the user.
 
     Error: unable to get role (DCEPrincipal-dce): operation error IAM: GetRole, https response error StatusCode: 403, RequestID: e4f05e70-6df8-48d0-b72e-2dbca5da459f, api error AccessDenied: User: arn:aws:sts::471112807930:assumed-role/DCEPrincipal-dce/s0aUt607ZQ__sebastian+mueller+syskron+com is not authorized to perform: iam:GetRole on resource: role DCEPrincipal-dce with an explicit deny in an identity-based policy
 
+# 21 - Automate Provisioning EKS cluster with Terraform - Part 3
+
+Setup the eks cluster in aws
+
+    terraform apply
+
+Update the kubeconfig to be able to connect
+
+    aws eks update-kubeconfig --name <eks-cluster-name> --region eu-central-1
+
+By default the cluster is not accessable from public.
+Therefore the terraform configuration must be changed so the public access is allowed.
+
+The terraform config must be applied again, therefore resources get recreated and the kubeconfig must be updated again.
+
+Deploy a nginx application with a service type loadbalancer.
+The application is then reachable from outside.
+
+Cleanup everything with one command
+
+    terraform destroy
