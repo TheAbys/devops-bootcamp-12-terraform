@@ -162,3 +162,9 @@ The application is then reachable from outside.
 Cleanup everything with one command
 
     terraform destroy
+
+# 22 - Complete CI/CD with Terraform - Part 1
+
+Terraform must be installed within the Jenkins container.
+Also the sshagent plugin for Jenkins must be installed.
+

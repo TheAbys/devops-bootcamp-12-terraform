@@ -9,8 +9,6 @@ module "eks" {
   subnet_ids = module.myapp-vpc.private_subnets
   vpc_id = module.myapp-vpc.vpc_id
 
-  create_iam_role = false
-
   tags = {
     environment = "development"
     application = "myapp"
